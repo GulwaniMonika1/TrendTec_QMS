@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="documents_quality_folder" model="documents.folder" forcecreate="0">
+            <field name="name">Quality Alert</field>
+            <field name="group_ids" eval="[(4, ref('quality.group_quality_user'))]"/>
+            <field name="read_group_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="user_specific">True</field>
+            <field name="sequence">12</field>
+        </record>
+
+        <record id="documents_quality_documents" model="documents.facet" forcecreate="0">
+            <field name="name">Documents</field>
+            <field name="sequence">6</field>
+            <field name="folder_id" ref="documents_quality_folder"/>
+        </record>
+
+        <record id="documents_workflow_rule_quality_alert" model="documents.workflow.rule">
+            <field name="name">Create QC Check Alert</field>
+            <field name="sequence">7</field>
+            <field name="domain_folder_id" ref="documents_quality_folder"/>
+            <field name="create_model">quality.alert</field>
+        </record>
+    </data>
+</odoo>
